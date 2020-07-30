@@ -3,11 +3,13 @@ import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { templateJitUrl } from '@angular/compiler';
 
 @Component({
-    selector: 'pm-products',
-    templateUrl: './product-list.component.html'
+    selector: "pm-products",
+    templateUrl: "./product-list.component.html"
 })
 export class ProductListComponent {
-    pageTitle: string = 'Product list for Lana';
+    pageTitle: string = "Product list for Lana";
+    imageWidth: number = 50;
+    imageMargin: number = 2;
     products: any[]=[
         {
             "productId": 1,
