@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { templateJitUrl } from '@angular/compiler';
+import { IProduct } from './product';
 
 @Component({
     selector: "pm-products",
@@ -13,7 +14,7 @@ export class ProductListComponent {
     showImage: boolean = false;
     showName: boolean = false;
     listFilter: string = "cart";
-    products: any[]=[
+    products: IProduct[]=[
         {
             "productId": 1,
             "productName": "Leaf Rake",
