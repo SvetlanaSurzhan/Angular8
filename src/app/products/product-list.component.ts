@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { templateJitUrl } from '@angular/compiler';
 import { IProduct } from './product';
@@ -8,7 +8,7 @@ import { IProduct } from './product';
     templateUrl: "./product-list.component.html",
     styleUrls: ["./product-list.component.css"]
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
     pageTitle: string = "Product list for ";
     imageWidth: number = 50;
     imageMargin: number = 2;
@@ -44,5 +44,7 @@ export class ProductListComponent {
     togglePageTitle():void{
         this.showName = !this.showName;
     }
-
+    ngOnInit(): void {
+        console.log("In OnInit");
+    }
 }
