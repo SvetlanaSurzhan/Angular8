@@ -1,19 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { templateJitUrl } from '@angular/compiler';
+import { IProduct } from './product';
 
 @Component({
     selector: "pm-products",
-    templateUrl: "./product-list.component.html"
+    templateUrl: "./product-list.component.html",
+    styleUrls: ["./product-list.component.css"]
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
     pageTitle: string = "Product list for ";
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
     showName: boolean = false;
-    listFilter: string = "cart";
-    products: any[]=[
+    showRaring: string = "";
+
+    _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+    }
+
+    filteredProducts: IProduct[];
+    products: IProduct[] = [
         {
             "productId": 1,
             "productName": "Leaf Rake",
@@ -23,6 +37,36 @@ export class ProductListComponent {
             "price": 19.9576,
             "starRating": 3.2,
             "imageUrl": "assets/images/leaf_rake.png"
+        },
+        {
+            "productId": 2,
+            "productName": "Garden Cart",
+            "productCode": "GDN-0023",
+            "releaseDate": "March 18, 2019",
+            "description": "15 gallon capacity rolling garden cart",
+            "price": 32.99,
+            "starRating": 4.2,
+            "imageUrl": "assets/images/garden_cart.png"
+        },
+        {
+            "productId": 5,
+            "productName": "Hammer",
+            "productCode": "TBX-0048",
+            "releaseDate": "May 21, 2019",
+            "description": "Curved claw steel hammer",
+            "price": 8.9,
+            "starRating": 4.8,
+            "imageUrl": "assets/images/hammer.png"
+        },
+        {
+            "productId": 8,
+            "productName": "Saw",
+            "productCode": "TBX-0022",
+            "releaseDate": "May 15, 2019",
+            "description": "15-inch steel blade hand saw",
+            "price": 11.55,
+            "starRating": 3.7,
+            "imageUrl": "assets/images/saw.png"
         },
         {
             "productId": 10,
@@ -36,11 +80,33 @@ export class ProductListComponent {
         }
     ];
 
+    constructor() {
+        this.filteredProducts = this.products;
+        this.listFilter = "cart";
+    }
+
+    onRatingClicked(massage: string): void {
+        this.pageTitle = "Product List: " + massage;
+    }
+
+    onRatingHover(valueEmitted: string) {
+        this.showRaring = valueEmitted;
+    }
+
+
+    performFilter(filterBy: string): IProduct[] {
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.products.filter((product: IProduct) =>
+            product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
+
     toggleImage(): void {
         this.showImage = !this.showImage;
     }
-    togglePageTitle():void{
+    togglePageTitle(): void {
         this.showName = !this.showName;
     }
-
+    ngOnInit(): void {
+        console.log("In OnInit");
+    }
 }
