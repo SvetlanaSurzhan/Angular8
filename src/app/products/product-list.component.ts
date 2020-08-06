@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
     imageMargin: number = 2;
     showImage: boolean = false;
     showName: boolean = false;
+    showRaring: string = "";
 
     _listFilter: string;
     get listFilter(): string {
@@ -83,6 +84,15 @@ export class ProductListComponent implements OnInit {
         this.filteredProducts = this.products;
         this.listFilter = "cart";
     }
+
+    onRatingClicked(massage: string): void {
+        this.pageTitle = "Product List: " + massage;
+    }
+
+    onRatingHover(valueEmitted: string) {
+        this.showRaring = valueEmitted;
+    }
+
 
     performFilter(filterBy: string): IProduct[] {
         filterBy = filterBy.toLocaleLowerCase();
